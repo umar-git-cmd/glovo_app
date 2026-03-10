@@ -28,8 +28,10 @@ class UserProfile(Base):
     __tablename__ = 'profile'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    first_name: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    last_name: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     username: Mapped[str] = mapped_column(String, unique=True)
-    email: Mapped[str] = mapped_column(String)
+    email: Mapped[str] = mapped_column(String, unique=True)
     password: Mapped[str] = mapped_column(String)
     role: Mapped[RoleChoices] = mapped_column(Enum(RoleChoices), default=RoleChoices.client)
     registered_date: Mapped[date] = mapped_column(Date, default=date.today)
@@ -39,6 +41,7 @@ class UserProfile(Base):
     order_courier: Mapped[List['Order']] = relationship(back_populates='courier', foreign_keys='Order.courier_id', cascade='all, delete-orphan')
     user_courier_product: Mapped[List['CourierProduct']] = relationship(back_populates='user', cascade='all, delete-orphan')
     client_review: Mapped[List['Review']] = relationship(back_populates='client_review', cascade='all, delete-orphan')
+    user_token: Mapped[List['RefreshToken']] = relationship(back_populates='user_token', cascade='all, delete-orphan')
 
 
 class Category(Base):
@@ -159,3 +162,13 @@ class Review(Base):
     client_review: Mapped[UserProfile] = relationship(back_populates='client_review')
     courier_review: Mapped[Optional[CourierProduct]] = relationship(back_populates='courier_review')
     store_review: Mapped[Store] = relationship(back_populates='store_review')
+
+
+class RefreshToken(Base):
+    __tablename__ = 'refresh_token'
+
+    id: Mapped[int] = mapped_column(autoincrement=True, primary_key=True)
+    user_id: Mapped[int]= mapped_column(ForeignKey('profile.id'))
+    user_token: Mapped[UserProfile] = relationship(back_populates='user_token')
+    token: Mapped[str] = mapped_column(String)
+    created_date: Mapped[DateTime] = mapped_column(DateTime, default=datetime.utcnow)

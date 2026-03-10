@@ -5,7 +5,7 @@ from mysite.database.db import SessionLocal
 from sqlalchemy.orm import Session
 from typing import List
 
-contact_router = APIRouter(prefix='/contact')
+contact_router = APIRouter(prefix='/contact', tags=['CONTACT'])
 
 async def get_db():
     db = SessionLocal()

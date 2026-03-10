@@ -5,7 +5,7 @@ from mysite.database.db import SessionLocal
 from sqlalchemy.orm import Session
 from typing import List
 
-courierProduct_router = APIRouter(prefix='/courier/product')
+courierProduct_router = APIRouter(prefix='/courier/product', tags=['COURIER_PRODUCT'])
 
 async def get_db():
     db = SessionLocal()

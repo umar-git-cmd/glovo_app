@@ -1,13 +1,11 @@
 from fastapi import APIRouter, HTTPException, Depends
-from pygments.lexer import default
-
 from mysite.database.models import UserProfile
 from mysite.database.schema import UserProfileOutSchema, UserProfileInputSchema
 from mysite.database.db import SessionLocal
 from sqlalchemy.orm import Session
 from typing import List
 
-user_router = APIRouter(prefix='/users')
+user_router = APIRouter(prefix='/users', tags=['USER'])
 
 async def get_db():
     db = SessionLocal()
@@ -16,13 +14,13 @@ async def get_db():
     finally:
         db.close()
 
-@user_router.post('/', response_model=UserProfileOutSchema)
-async def create_user(user: UserProfileInputSchema, db: Session = Depends(get_db)):
-    user_db = UserProfile(**user.dict())
-    db.add(user_db)
-    db.commit()
-    db.refresh(user_db)
-    return user_db
+# @user_router.post('/', response_model=UserProfileOutSchema)
+# async def create_user(user: UserProfileInputSchema, db: Session = Depends(get_db)):
+#     user_db = UserProfile(**user.dict())
+#     db.add(user_db)
+#     db.commit()
+#     db.refresh(user_db)
+#     return user_db
 
 @user_router.get('/', response_model=List[UserProfileOutSchema])
 async def list_user(db: Session = Depends(get_db)):

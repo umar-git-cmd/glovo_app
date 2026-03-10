@@ -5,7 +5,7 @@ from mysite.database.db import SessionLocal
 from sqlalchemy.orm import Session
 from typing import  List
 
-order_router = APIRouter(prefix='/order')
+order_router = APIRouter(prefix='/order', tags=['ORDER'])
 
 async def get_db():
     db = SessionLocal()

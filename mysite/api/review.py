@@ -7,7 +7,7 @@ from mysite.database.db import SessionLocal
 from sqlalchemy.orm import Session
 from typing import List
 
-review_router = APIRouter(prefix='/review')
+review_router = APIRouter(prefix='/REVIEW')
 
 async def get_db():
     db = SessionLocal()

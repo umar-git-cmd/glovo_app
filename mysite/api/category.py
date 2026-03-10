@@ -1,5 +1,3 @@
-from unicodedata import category
-
 from fastapi import APIRouter, HTTPException, Depends
 from mysite.database.models import Category
 from mysite.database.schema import CategoryOutSchema, CategoryInputSchema
@@ -7,7 +5,7 @@ from mysite.database.db import SessionLocal
 from sqlalchemy.orm import Session
 from typing import List
 
-category_router = APIRouter(prefix='/category')
+category_router = APIRouter(prefix='/category', tags=['CATEGORY'])
 
 async def get_db():
     db = SessionLocal()

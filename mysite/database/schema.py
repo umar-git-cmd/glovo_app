@@ -4,12 +4,16 @@ from typing import Optional
 from datetime import date, datetime
 
 class UserProfileInputSchema(BaseModel):
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
     username: str
     email: str
     password: str
 
 class UserProfileOutSchema(BaseModel):
     id: int
+    first_name: str
+    last_name: str
     username: str
     email: str
     password: str
@@ -137,3 +141,6 @@ class ReviewOutSchema(BaseModel):
     courier_product_id: int
 
 
+class UserLoginShema(BaseModel):
+    username: str
+    password: str

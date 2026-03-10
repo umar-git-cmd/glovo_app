@@ -7,7 +7,7 @@ from mysite.database.db import SessionLocal
 from sqlalchemy.orm import Session
 from typing import List
 
-address_router = APIRouter(prefix='/address')
+address_router = APIRouter(prefix='/address', tags=['ADDRESS'])
 
 async def get_db():
     db = SessionLocal()
